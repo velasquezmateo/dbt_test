@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: mart
+    description: "tabla desnormalizada"
+    columns:
+      - name: id_rep
+        description: "Clave primaria"
+        tests:
+          - unique
+          - not_null
+
+      - name: volumen_util
+        description: "Volumen útil de los embalses para generación de energía"
+        tests:
+          - not_null
+          - valor_maximo  

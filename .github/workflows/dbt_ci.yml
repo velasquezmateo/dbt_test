@@ -1,0 +1,38 @@
+name: dbt_CI_Pipeline
+
+on:
+  push:
+    branches: [ main ]  # Verifica si tu rama se llama main o master
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run_dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install dbt-postgres
+
+      - name: Run dbt Build
+        # Usamos 'working-directory' para decirle a GitHub que entre a 'first_project'
+        working-directory: ./first_project
+        run: |
+          dbt build --profiles-dir . --target dev
+        env:
+          # Estos nombres deben coincidir EXACTAMENTE con los que creaste en 'Secrets'
+          DBT_HOST: ${{ secrets.DBT_HOST }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_PORT: 5432
+          DBT_DBNAME: ${{ secrets.DBT_DATABASENAME }}
+          DBT_SCHEMA: public

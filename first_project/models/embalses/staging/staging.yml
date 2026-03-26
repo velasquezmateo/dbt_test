@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_embalses
+    description: "Modelos de limpieza para los datos de embalses de Postgres"
+    columns:
+      - name: id_rep
+        description: "Clave primaria del embalse"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_regiones
+    description: "Regiones"
+    columns:
+      - name: nombre_reg
+        description: "Clave de regiones"
+        tests:
+          - unique
+          - not_null

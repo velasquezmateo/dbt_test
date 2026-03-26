@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: source              # Este es el nombre que dbt usará internamente
+    description: "Datos crudos en el esquema public"
+    database: postgres     # <--- CAMBIA ESTO por el nombre de tu BD en Postgres
+    schema: public
+    tables:
+      - name: datos_embalses_crudos
+      - name: maestro_regiones
