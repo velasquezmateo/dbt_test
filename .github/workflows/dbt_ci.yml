@@ -2,7 +2,7 @@ name: dbt_CI_Pipeline
 
 on:
   push:
-    branches: [ main ]  # Verifica si tu rama se llama main o master
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -21,15 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install dbt-postgres
+          pip install dbt-bigquery
 
-- name: Run dbt Build
+      - name: Run dbt Build
         working-directory: ./first_project
         run: |
-          # El punto (.) en --profiles-dir le dice que busque el profiles.yml
-          # que copiamos a la raíz del repositorio.
           dbt build --profiles-dir .. --target github_action
         env:
-          # Estas son las variables que dbt buscará para BigQuery
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_KEYFILE_JSON: ${{ secrets.GCP_KEYFILE_JSON }}
