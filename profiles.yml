@@ -4,7 +4,9 @@ dbt_testing:
     github_action:
       type: bigquery
       method: service-account
-      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      # Forzamos que sea un string explícito
+      project: "{{ env_var('GCP_PROJECT_ID') | string }}"
       dataset: dbt_test
       threads: 4
-      keyfile_json: "{{ env_var('GCP_KEYFILE_JSON') | as_native }}"
+      # Quitamos el filtro as_native y dejamos que dbt lo maneje como JSON puro
+      keyfile_json: {{ env_var('GCP_KEYFILE_JSON') }}
