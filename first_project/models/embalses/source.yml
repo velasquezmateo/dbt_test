@@ -1,17 +1,18 @@
 version: 2
 
 sources:
-  - name: source              # Este es el nombre que dbt usará internamente
+  - name: source
     description: "Datos crudos en el esquema public"
-    database: postgres     # <--- CAMBIA ESTO por el nombre de tu BD en Postgres
+    database: postgres
     schema: public
     tables:
       - name: datos_embalses_crudos
       - name: maestro_regiones
 
-- name: gcp_source
-    database: "{{ env_var('GCP_PROJECT_ID') }}" 
-    schema: dbt_test 
+  - name: gcp_source
+    # Importante: Usamos 'database' y 'schema' para BigQuery
+    database: "{{ env_var('GCP_PROJECT_ID') }}"
+    schema: dbt_test
     tables:
       - name: datos_embalses_crudos
       - name: maestro_regiones
