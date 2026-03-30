@@ -1,3 +1,3 @@
 {{config(materialized='view')}}
 
-SELECT * from {{source('source','maestro_regiones')}}
+SELECT * from {{source('gcp_source','maestro_regiones')}}
