@@ -8,3 +8,10 @@ sources:
     tables:
       - name: datos_embalses_crudos
       - name: maestro_regiones
+
+- name: gcp_source
+    database: "{{ env_var('GCP_PROJECT_ID') }}" 
+    schema: dbt_test 
+    tables:
+      - name: datos_embalses_crudos
+      - name: maestro_regiones
