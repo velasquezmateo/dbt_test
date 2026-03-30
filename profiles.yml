@@ -3,7 +3,7 @@ dbt_testing:
   outputs:
     github_action:
       type: bigquery
-      method: service-account
+      method: service-account-json
       # Forzamos que sea un string explícito
       project: "{{ env_var('GCP_PROJECT_ID') | string }}"
       dataset: dbt_test
