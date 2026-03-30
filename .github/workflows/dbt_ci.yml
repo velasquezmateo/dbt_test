@@ -25,8 +25,8 @@ jobs:
 
       - name: Run dbt Build
         working-directory: ./first_project
-        run: |
-          dbt build --profiles-dir .. --target github_action
         env:
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          GCP_KEYFILE_JSON: '${{ secrets.GCP_KEYFILE_JSON }}'
+          GCP_KEYFILE_JSON: ${{ secrets.GCP_KEYFILE_JSON }}
+        run: |
+          dbt build --profiles-dir .. --target github_action
