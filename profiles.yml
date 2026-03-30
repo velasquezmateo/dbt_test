@@ -1,0 +1,23 @@
+first_project:
+  outputs:
+    dev:
+      dbname: postgres
+      host: localhost
+      pass: postgres_caesar
+      port: 5432
+      schema: dbt
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
+
+dbt_testing:
+  target: github_action
+  outputs:
+    github_action:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: dbt_test 
+      threads: 4
+      keyfile_json: "{{ env_var('GCP_KEYFILE_JSON') }}"
