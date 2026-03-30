@@ -23,16 +23,13 @@ jobs:
         run: |
           pip install dbt-postgres
 
-      - name: Run dbt Build
-        # Usamos 'working-directory' para decirle a GitHub que entre a 'first_project'
+- name: Run dbt Build
         working-directory: ./first_project
         run: |
-          dbt build --profiles-dir . --target dev
+          # El punto (.) en --profiles-dir le dice que busque el profiles.yml
+          # que copiamos a la raíz del repositorio.
+          dbt build --profiles-dir .. --target github_action
         env:
-          # Estos nombres deben coincidir EXACTAMENTE con los que creaste en 'Secrets'
-          DBT_HOST: ${{ secrets.DBT_HOST }}
-          DBT_USER: ${{ secrets.DBT_USER }}
-          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
-          DBT_PORT: 5432
-          DBT_DBNAME: ${{ secrets.DBT_DATABASENAME }}
-          DBT_SCHEMA: public
+          # Estas son las variables que dbt buscará para BigQuery
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_KEYFILE_JSON: ${{ secrets.GCP_KEYFILE_JSON }}
