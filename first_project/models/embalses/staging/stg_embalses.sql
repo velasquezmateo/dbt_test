@@ -3,7 +3,7 @@
 WITH raw_data as (
 SELECT  id_rep,
 	nom_repre as nombre_represa,
-	cast(vol_util as FLOAT) as volumen_util,
+	cast(vol_util as FLOAT64) as volumen_util,
 	cast(fecha_reg as DATE) as fecha_registro,
 	region
 FROM {{source('gcp_source','datos_embalses_crudos')}}
